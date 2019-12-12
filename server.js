@@ -23,6 +23,9 @@ app.get("/scrape", function(req, res) {
     .then(function(response) {
       var $ = cheerio.load(response.data);
 
+      const titles = [];
+
+      // looping through h2's on page
       $("h2.FeedItemHeadline_headline").each(function(i, element) {
         var result = {};
 
@@ -33,13 +36,16 @@ app.get("/scrape", function(req, res) {
           .children("a")
           .attr("href");
 
-        db.Article.create(result)
-          .then(function(data) {
-            console.log(data);
-          })
-          .catch(function(err) {
-            console.log(err);
-          });
+        if (!titles.includes(result.title)) {
+          titles.push(result.title);
+          db.Article.create(result)
+            .then(function(data) {
+              console.log(data);
+            })
+            .catch(function(err) {
+              console.log(err);
+            });
+        } else return;
       });
 
       res.send("Scrape Completed!");
