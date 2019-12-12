@@ -47,5 +47,5 @@ app.get("/scrape", function(req, res) {
 });
 
 app.listen(PORT, function() {
-  console.log("Listening on localhost:" + PORT + "!");
+  console.log("Listening on localhost:" + PORT);
 });
