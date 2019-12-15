@@ -51,6 +51,15 @@ app.get("/scrape", function(req, res) {
       res.send("Scrape Completed!");
     });
 });
+app.get("/articles", function(req, res) {
+  db.Articles.find({})
+    .then(function(dbArticles) {
+      res.json(dbArticles);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
 
 app.listen(PORT, function() {
   console.log("Listening on localhost:" + PORT);
