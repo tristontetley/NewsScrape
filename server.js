@@ -5,7 +5,7 @@ var cheerio = require("cheerio");
 
 var db = require("./models");
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 var app = express();
 
@@ -48,13 +48,52 @@ app.get("/scrape", function(req, res) {
         } else return;
       });
 
-      res.send("Scrape Completed!");
+      res.alert("Scrape Completed!");
     });
 });
-app.get("/articles", function(req, res) {
-  db.Articles.find({})
-    .then(function(dbArticles) {
-      res.json(dbArticles);
+app.get("/article", function(req, res) {
+  db.Article.find({})
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
+
+app.get("/note", function(req, res) {
+  db.Note.find({})
+    .then(function(dbNote) {
+      res.json(dbNote);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
+
+app.post("/submitNote", function(req, res) {
+  db.Note.create(req.body)
+    .then(function(dbNote) {
+      return db.Articles.findOneAndUpdate(
+        {},
+        { $push: { note: dbNote._id } },
+        { new: true }
+      );
+    })
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
+
+app.get("/populatedArticle", function(req, res) {
+  db.Article.find({})
+
+    .populate("notes")
+    .then(function(dbArticle) {
+      res.json(dbArticle);
     })
     .catch(function(err) {
       res.json(err);

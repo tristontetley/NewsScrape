@@ -30,18 +30,30 @@
   </head>
   <body>
     <header id="masthead">
-      <div class="container">
+      <div id="container">
         <a href="index.html" id="home">Home</a>
         <nav>
           <a id="scrapeArticles" href="/scrape">Scrape</a>
-          <a id="savedArticles" href="/articles">Articles</a>
+          <a id="savedArticles" href="#">Articles</a>
         </nav>
       </div>
     </header>
+    <div class="container">
+      <div id="wrapper">
+        <div class="row" id="col-border">
+          <div class="col-lg-12">
+            <div id="article"></div>
+            <div id="note"></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <footer>
       <div class="footer">
         Copyright ©
       </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>

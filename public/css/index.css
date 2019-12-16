@@ -3,14 +3,13 @@ body {
     font-size: 18px;
     line-height: 34px;
     color: #777777;
-    /* background:  */
 }
 
 * {
     box-sizing: border-box;
 }
 
-.container {
+#container {
     width: 100%;
     max-width: 960px;
     margin: 0 auto;
@@ -59,6 +58,41 @@ nav a {
     color: #ffffff;
     background: #ffffff;
     border-bottom: 2px solid black;
+}
+
+#wrapper {
+    /*  width: 960px; */
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 15%;
+}
+
+#article {
+    display: inline-block;
+    overflow: auto;
+    width: 60%;
+    height: 700px;
+}
+
+#note-btn {
+    float: right;
+}
+
+textarea, input {
+    display: block;
+    width: 100%;
+    background-color: #FCF5C7;
+}
+
+input {
+    height: 36px;
+    font-size: 24px;
+}
+
+textarea {
+    height: 200px;
+    font-size: 18px;
 }
 
 footer {
