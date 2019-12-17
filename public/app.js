@@ -2,8 +2,8 @@ $.getJSON("/article", function(data) {
   for (var i = 0; i < data.length; i++) {
     $("#article").append(
       "<div id=article-border>" +
-        "<button class='btn-primary' id='note-btn'>Comment</button>" +
-        "<p data-id='" +
+        `<button class='btn-primary' id='note-btn' data-id=${data[i]._id}>Comment</button>` +
+        "<p id='para" +
         data[i]._id +
         "'>" +
         data[i].title +
@@ -26,14 +26,19 @@ $(document).on("click", "#note-btn", function() {
     url: "/article/" + thisId
   }).then(function(data) {
     console.log(data);
+    const targetId = `para${data.pop()._id}`;
+    console.log(targetId);
+    console.log($(`#para${data._id}`));
 
-    $("#note").append("<h2>" + data.title + "</h2>");
+    $(`#${targetId}`).append("<h2>" + data.title + "</h2>");
 
-    $("#note").append("<input id='titleinput' name='title' />");
+    $(`#${targetId}`).append("<input id='titleinput' name='title' />");
 
-    $("#note").append("<textarea id='bodyinput' name='body'></textarea>");
+    $(`#${targetId}`).append(
+      "<textarea id='bodyinput' name='body'></textarea>"
+    );
 
-    $("#note").append(
+    $(`#${targetId}`).append(
       "<button data-id='" + data._id + "' id='savenote'>Save Note</button>"
     );
 

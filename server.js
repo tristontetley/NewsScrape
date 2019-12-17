@@ -13,8 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-var MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsScraper";
 mongoose.connect(MONGODB_URI);
 
 app.get("/scrape", function(req, res) {
@@ -48,7 +47,7 @@ app.get("/scrape", function(req, res) {
         } else return;
       });
 
-      res.alert("Scrape Completed!");
+      res.send("Scrape Completed!");
     });
 });
 app.get("/article", function(req, res) {
@@ -62,10 +61,10 @@ app.get("/article", function(req, res) {
 });
 
 app.get("/article/:id", function(req, res) {
-  db.Articles.find({ _id: req.params.id })
+  db.Article.find({ _id: req.params.id })
     .populate("note")
-    .then(function(dbArticles) {
-      res.json(dbArticles);
+    .then(function(dbArticle) {
+      res.json(dbArticle);
     })
     .catch(function(err) {
       res.json(err);
