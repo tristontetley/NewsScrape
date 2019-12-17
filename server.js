@@ -61,17 +61,18 @@ app.get("/article", function(req, res) {
     });
 });
 
-app.get("/note", function(req, res) {
-  db.Note.find({})
-    .then(function(dbNote) {
-      res.json(dbNote);
+app.get("/article/:id", function(req, res) {
+  db.Articles.find({ _id: req.params.id })
+    .populate("note")
+    .then(function(dbArticles) {
+      res.json(dbArticles);
     })
     .catch(function(err) {
       res.json(err);
     });
 });
 
-app.post("/submitNote", function(req, res) {
+app.post("/article/:id", function(req, res) {
   db.Note.create(req.body)
     .then(function(dbNote) {
       return db.Articles.findOneAndUpdate(
@@ -80,18 +81,6 @@ app.post("/submitNote", function(req, res) {
         { new: true }
       );
     })
-    .then(function(dbArticle) {
-      res.json(dbArticle);
-    })
-    .catch(function(err) {
-      res.json(err);
-    });
-});
-
-app.get("/populatedArticle", function(req, res) {
-  db.Article.find({})
-
-    .populate("notes")
     .then(function(dbArticle) {
       res.json(dbArticle);
     })

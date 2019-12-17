@@ -7,6 +7,10 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
+  bio: {
+    type: String,
+    required: false
+  },
   link: {
     type: String,
     required: true
