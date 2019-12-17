@@ -74,7 +74,7 @@ app.get("/article/:id", function(req, res) {
 app.post("/article/:id", function(req, res) {
   db.Note.create(req.body)
     .then(function(dbNote) {
-      return db.Articles.findOneAndUpdate(
+      return db.Article.findOneAndUpdate(
         {},
         { $push: { note: dbNote._id } },
         { new: true }
