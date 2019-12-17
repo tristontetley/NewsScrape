@@ -81,6 +81,7 @@ nav a {
 
 #note-btn {
     float: right;
+    margin-top: 10px;
 }
 
 textarea, input {
