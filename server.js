@@ -64,6 +64,7 @@ app.get("/article/:id", function(req, res) {
   db.Article.find({ _id: req.params.id })
     .populate("note")
     .then(function(dbArticle) {
+      console.log("dbArticle", dbArticle);
       res.json(dbArticle);
     })
     .catch(function(err) {

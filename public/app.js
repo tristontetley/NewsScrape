@@ -1,44 +1,57 @@
-$.getJSON("/article", function(data) {
-  for (var i = 0; i < data.length; i++) {
-    $("#article").append(
-      "<div id=article-border>" +
-        `<button class='btn-primary' id='note-btn' data-id=${data[i]._id}>Comment</button>` +
-        "<p id='para" +
-        data[i]._id +
-        "'>" +
-        data[i].title +
-        "</p>" +
-        "<a href='" +
-        data[i].link +
-        "'>" +
-        data[i].link +
-        "</a>" +
-        "</div>"
-    );
-  }
+function getArticles() {
+  $.getJSON("/article", function(data) {
+    for (var i = 0; i < data.length; i++) {
+      $("#article").append(
+        "<div id=article-border class='para" +
+          data[i]._id +
+          "'>" +
+          `<button class='btn-primary' id='note-btn' data-id=${data[i]._id}>Comment</button>` +
+          "<p id='para" +
+          data[i]._id +
+          "'>" +
+          data[i].title +
+          "</p>" +
+          "<a href='" +
+          data[i].link +
+          "'>" +
+          data[i].link +
+          "</a>" +
+          "</div>"
+      );
+    }
+  });
+}
+
+$("#scrapedArticles").on("click", function() {
+  $.get("/scrape").then(function(data) {
+    console.log(data);
+    getArticles();
+  });
 });
 
 $(document).on("click", "#note-btn", function() {
+  $(`#note`).empty();
   var thisId = $(this).attr("data-id");
+  console.log("thisId", thisId);
 
   $.ajax({
     method: "GET",
     url: "/article/" + thisId
   }).then(function(data) {
-    console.log(data);
-    const targetId = `para${data.pop()._id}`;
-    console.log(targetId);
-    console.log($(`#para${data._id}`));
+    console.log("data[0]", data[0]);
+    console.log("typeof", typeof data[0]);
+    const targetId = "para" + data[0]._id;
+    // console.log("data.pop", data.pop()._id);
+    console.log("id", targetId);
+    console.log($(`.para${targetId}`));
 
-    $(`#${targetId}`).append("<h2>" + data.title + "</h2>");
+    $(`#note`).append("<h2>" + data[0].title + "</h2>");
 
-    $(`#${targetId}`).append("<input id='titleinput' name='title' />");
+    $(`#note`).append("<input id='titleinput' name='title' />");
 
-    $(`#${targetId}`).append(
-      "<textarea id='bodyinput' name='body'></textarea>"
-    );
+    $(`#note`).append("<textarea id='bodyinput' name='body'></textarea>");
 
-    $(`#${targetId}`).append(
+    $(`#note`).append(
       "<button data-id='" + data._id + "' id='savenote'>Save Note</button>"
     );
 
@@ -70,3 +83,5 @@ $(document).on("click", "#savenote", function() {
   $("#titleinput").val("");
   $("#bodyinput").val("");
 });
+
+getArticles();

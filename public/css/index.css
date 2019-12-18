@@ -30,6 +30,11 @@ body {
     text-decoration: none;
 }
 
+#note {
+    float: right;
+    width: 25%;
+}
+
 nav {
     float: right;
     margin-top: 25px;
@@ -75,7 +80,7 @@ nav a {
 #article {
     display: inline-block;
     overflow: auto;
-    width: 100%;
+    width: 70%;
     height: 700px;
 }
 
