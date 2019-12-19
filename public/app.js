@@ -6,7 +6,7 @@ function getArticles() {
           data[i]._id +
           "'>" +
           `<button class='btn-primary' id='note-btn' data-id=${data[i]._id}>Comment</button>` +
-          `<button class='btn-primary' id='view-note-btn'>Notes</button>` +
+          `<button class='btn-primary' id='view-note-btn' data-id=${data[i]._id}>Notes</button>` +
           "<p id='para" +
           data[i]._id +
           "'>" +
@@ -78,20 +78,23 @@ $(document).on("click", "#savenote", function() {
 
 $(document).on("click", "#view-note-btn", function() {
   $(`#note`).empty();
-  var thisId = $("#note-btn").attr("data-id");
+  var thisId = $(this).attr("data-id");
 
   $.ajax({
     method: "GET",
     url: "/article/" + thisId
   }).then(function(data) {
-    $(`#note`).append(
-      "<h2 class='article-notes' id='note-title'>" +
-        data[0].note.title +
-        "<button class='article-notes' id='remove-note'>x</button></h2>"
-    );
-    $(`#note`).append(
-      "<button class='btn-secondary article-notes' id='done-btn'>Done</button>"
-    );
+    console.log("this is data", data);
+    for (let i = 0; i < data[0].note.length; i++) {
+      $(`#note`).append(
+        "<h2 class='article-notes' id='note-title'>" +
+          data[0].note[i].title +
+          "<button class='article-notes' id='remove-note'>x</button></h2>"
+      );
+      $(`#note`).append(
+        "<button class='btn-secondary article-notes' id='done-btn'>Done</button>"
+      );
+    }
   });
 });
 
