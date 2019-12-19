@@ -95,6 +95,10 @@ $(document).on("click", "#view-note-btn", function() {
   });
 });
 
+$(document).on("click", "#remove-note", function() {
+  $("#note-title").empty();
+});
+
 $(document).on("click", "#done-btn", function() {
   $("#note").empty();
 });
