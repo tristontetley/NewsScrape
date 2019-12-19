@@ -75,28 +75,29 @@ $(document).on("click", "#savenote", function() {
   $("#titleinput").val("");
   $("#bodyinput").val("");
 });
+function removeNote() {
+  $(document).on("click", "#view-note-btn", function() {
+    $(`#note`).empty();
+    var thisId = $(this).attr("data-id");
 
-$(document).on("click", "#view-note-btn", function() {
-  $(`#note`).empty();
-  var thisId = $(this).attr("data-id");
-
-  $.ajax({
-    method: "GET",
-    url: "/article/" + thisId
-  }).then(function(data) {
-    console.log("this is data", data);
-    for (let i = 0; i < data[0].note.length; i++) {
-      $(`#note`).append(
-        "<h2 class='article-notes' id='note-title'>" +
-          data[0].note[i].title +
-          "<button class='article-notes' id='remove-note'>x</button></h2>"
-      );
+    $.ajax({
+      method: "GET",
+      url: "/article/" + thisId
+    }).then(function(data) {
+      console.log("this is data", data);
+      for (let i = 0; i < data[0].note.length; i++) {
+        $(`#note`).append(
+          "<h2 class='article-notes' id='note-title'>" +
+            data[0].note[i].title +
+            "<button class='article-notes' id='remove-note'>x</button></h2>"
+        );
+      }
       $(`#note`).append(
         "<button class='btn-secondary article-notes' id='done-btn'>Done</button>"
       );
-    }
+    });
   });
-});
+}
 
 $(document).on("click", "#remove-note", function() {
   $("#note-title").empty();
@@ -105,5 +106,5 @@ $(document).on("click", "#remove-note", function() {
 $(document).on("click", "#done-btn", function() {
   $("#note").empty();
 });
-
+removeNote();
 getArticles();

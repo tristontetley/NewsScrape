@@ -89,6 +89,19 @@ app.post("/article/:id", function(req, res) {
     });
 });
 
+/* app.post("/note/:id", function(req, res) {
+  db.Note.destroy(req.body)
+    .then(function(dbNote) {
+      return db.Article.findOneAndDelete({ dbNote });
+    })
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+}); */
+
 app.listen(PORT, function() {
   console.log("Listening on localhost:" + PORT);
 });
