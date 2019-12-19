@@ -86,7 +86,7 @@ $(document).on("click", "#view-note-btn", function() {
   }).then(function(data) {
     $(`#note`).append(
       "<h2 class='article-notes' id='note-title'>" +
-        data.title +
+        data[0].note.title +
         "<button class='article-notes' id='remove-note'>x</button></h2>"
     );
     $(`#note`).append(
