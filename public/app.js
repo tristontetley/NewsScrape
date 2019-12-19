@@ -6,6 +6,7 @@ function getArticles() {
           data[i]._id +
           "'>" +
           `<button class='btn-primary' id='note-btn' data-id=${data[i]._id}>Comment</button>` +
+          `<button class='btn-primary' id='view-note-btn'>Notes</button>` +
           "<p id='para" +
           data[i]._id +
           "'>" +
@@ -24,7 +25,6 @@ function getArticles() {
 
 $("#scrapedArticles").on("click", function() {
   $.get("/scrape").then(function(data) {
-    console.log(data);
     getArticles();
   });
 });
@@ -32,19 +32,11 @@ $("#scrapedArticles").on("click", function() {
 $(document).on("click", "#note-btn", function() {
   $(`#note`).empty();
   var thisId = $(this).attr("data-id");
-  console.log("thisId", thisId);
 
   $.ajax({
     method: "GET",
     url: "/article/" + thisId
   }).then(function(data) {
-    console.log("data[0]", data[0]);
-    console.log("typeof", typeof data[0]);
-    const targetId = "para" + data[0]._id;
-    // console.log("data.pop", data.pop()._id);
-    console.log("id", targetId);
-    console.log($(`.para${targetId}`));
-
     $(`#note`).append("<h2>" + data[0].title + "</h2>");
 
     $(`#note`).append("<input id='titleinput' name='title' />");
@@ -82,6 +74,29 @@ $(document).on("click", "#savenote", function() {
 
   $("#titleinput").val("");
   $("#bodyinput").val("");
+});
+
+$(document).on("click", "#view-note-btn", function() {
+  $(`#note`).empty();
+  var thisId = $("#note-btn").attr("data-id");
+
+  $.ajax({
+    method: "GET",
+    url: "/article/" + thisId
+  }).then(function(data) {
+    $(`#note`).append(
+      "<h2 class='article-notes' id='note-title'>" +
+        data.title +
+        "<button class='article-notes' id='remove-note'>x</button></h2>"
+    );
+    $(`#note`).append(
+      "<button class='btn-secondary article-notes' id='done-btn'>Done</button>"
+    );
+  });
+});
+
+$(document).on("click", "#done-btn", function() {
+  $("#note").empty();
 });
 
 getArticles();

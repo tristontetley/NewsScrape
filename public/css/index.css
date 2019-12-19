@@ -89,6 +89,28 @@ nav a {
     margin-top: 10px;
 }
 
+#view-note-btn {
+    float: right;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.article-notes {
+    display: block;
+    width: 100%;
+    background-color: #FCF5C7;
+    font-size: 24px;
+    color: black;
+}
+
+#note-title {
+    float: left;
+}
+
+#remove-note {
+    float: right;
+}
+
 textarea, input {
     display: block;
     width: 100%;
