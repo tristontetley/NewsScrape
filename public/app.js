@@ -102,7 +102,8 @@ function removeNote() {
 $(document).on("click", "#remove-note", function() {
   $("#note-title").empty();
 });
-/* The above function also needs to have some sort of connetivity to the current note that it is removing. I was not sure how to make this work eveything I tried broke more things than it fixed so this is what I have for deleting each note. */
+/* The above function also needs to have some sort of connetivity to the current note that it is removing. I was not sure how to make this work eveything I tried broke more things than it fixed so this is what I have for deleting each note. 
+There is also no connection of the notes to there article that they have been commented on yet. Basically there should be a connection between the note made to the article that the note was made on. This way you can see those notes in the future and be able to delete them.*/
 
 $(document).on("click", "#done-btn", function() {
   $("#note").empty();
