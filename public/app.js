@@ -102,6 +102,7 @@ function removeNote() {
 $(document).on("click", "#remove-note", function() {
   $("#note-title").empty();
 });
+/* The above function also needs to have some sort of connetivity to the current note that it is removing. I was not sure how to make this work eveything I tried broke more things than it fixed so this is what I have for deleting each note. */
 
 $(document).on("click", "#done-btn", function() {
   $("#note").empty();
