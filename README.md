@@ -9,3 +9,5 @@ Whenever a user visits my site, the app will scrape stories from a news outlet I
      * URL - the url to the original article
 
 Users are able to leave comments on the articles displayed and revisit them later. The comments are saved to the database, but I could not connect the saved notes to there specified delete button after they were ceated. Other than that everything is working. All stored comments are visible to every user.
+
+website deployment link: https://shielded-falls-49253.herokuapp.com/
